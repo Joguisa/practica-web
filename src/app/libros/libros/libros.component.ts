@@ -6,10 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./libros.component.css']
 })
 export class LibrosComponent {
-  libros = ['Primer Amor', 'Meditaciones', 'Minguito'];
+  books = ['Primer Amor', 'Meditaciones', 'Minguito'];
 
-  eliminarLibro(libro: string){
-    this.libros = this.libros.filter( p => p !== libro)
+  deleteBook(book: string){
+    this.books = this.books.filter( p => p !== book)
+  }
+
+  saveBook(f: any){
+    if (f.valid) {
+      this.books.push(f.value.bookName);
+    }
   }
 
 }

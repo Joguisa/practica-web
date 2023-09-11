@@ -6,12 +6,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./libro.component.css']
 })
 export class LibroComponent {
-  @Input() tituloLibro!: string;
-  @Output() libroClicked = new EventEmitter();
+  @Input() bookTitle!: string;
+  @Output() clickedBook = new EventEmitter();
   
 
   onClicked() {
-    this.libroClicked.emit();
+    this.clickedBook.emit();
     
   }
 
