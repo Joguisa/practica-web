@@ -7,6 +7,7 @@ import { UsuarioComponent } from './usuario.component';
 import { FormsModule } from '@angular/forms';
 import { LibrosComponent } from './libros/libros/libros.component';
 import { LibroComponent } from './libro/libro/libro.component';
+import { LibroService } from './services/libros.service';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { LibroComponent } from './libro/libro/libro.component';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [LibroService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
