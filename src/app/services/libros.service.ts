@@ -1,16 +1,21 @@
+import { Subject } from "rxjs";
+
 export class LibroService {
-    private libros = ['El Psicoanalista', 'Filosofía', 'Clean Code'];
+    private books = ['El Psicoanalista', 'Filosofía', 'Clean Code'];
+    bookSubject =  new Subject();
 
     addBook(nameBook: string){
-        this.libros.push(nameBook);
+        this.books.push(nameBook);
+        this.bookSubject.next(nameBook);
     }
 
     getBooks(){
-        return [...this.libros];
+        return [...this.books];
     }
 
-    deleteBook(){
-        this.libros.pop();
+    deleteBook(nameBook: string){
+        this.books = this.books.filter( x => x != nameBook);
+        this.bookSubject.next(nameBook);
     }
 
 }

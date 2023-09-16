@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { LibroService } from 'src/app/services/libros.service';
 
 @Component({
@@ -6,20 +7,32 @@ import { LibroService } from 'src/app/services/libros.service';
   templateUrl: './libros.component.html',
   styleUrls: ['./libros.component.css']
 })
-export class LibrosComponent {
-
+export class LibrosComponent implements OnInit, OnDestroy {
   books: string[] = []; 
-  constructor(private bookService: LibroService) {
-    this.books = bookService.getBooks();
+  private bookSuscription!: Subscription
+  constructor(private bookService: LibroService) {}
+
+  ngOnDestroy() {
+    this.bookSuscription.unsubscribe()
   }
 
-  deleteBook(book: string){
-    
+  ngOnInit() {
+    this.books = this.bookService.getBooks();
+    this.bookSuscription = this.bookService.bookSubject.subscribe(()=> 
+      this.books =  this.bookService.getBooks()
+    )
   }
+
+  deleteBook(bookTitle: string){
+    this.bookService.deleteBook(bookTitle);
+    // Actualiza la lista de libros en el componente si es necesario
+    this.books = this.bookService.getBooks();
+}
+
 
   saveBook(f: any){
     if (f.valid) {
-      
+      this.bookService.addBook(f.value.nameBook)
     }
   }
 
